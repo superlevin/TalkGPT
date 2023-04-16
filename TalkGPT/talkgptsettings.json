@@ -1,0 +1,7 @@
+{
+  "OpenAI_APIKEY": "sk-XXX",
+  "Azure_Speech_SubscriptionKEY": "111dc6e85b704998bb3f2b1a19bc12db",
+  "Azure_Speech_Region": "eastasia",
+  "Azure_Speech_Language": "zh-TW",
+  "Azure_Speech_VoiceName": "zh-TW-YunJheNeural"
+}
