@@ -1,8 +1,10 @@
 ﻿/*
 Author: Lin Shou Shan (superlevin@gmail.com)
 WebSite: https://superlevin.ifengyuan.tw
-Date: 2023.4.16
-Description: This is a C# example that combines ChatGPT with Microsoft Cognitive Services, allowing for voice conversations with ChatGPT. It has the potential to evolve into interesting applications such as elderly care and other engaging functionalities.
+Date: 2024.12.27 (Updated from 2023.4.16)
+Description: This is a C# example that combines ChatGPT with Microsoft Cognitive Services, allowing for voice conversations with ChatGPT. 
+Updated to latest versions with .NET 8.0, newest package dependencies, and GPT-4 for improved performance and faster responses.
+It has the potential to evolve into interesting applications such as elderly care and other engaging functionalities.
 
 */
 using Microsoft.CognitiveServices.Speech;
@@ -48,6 +50,10 @@ async static Task FromMic(SpeechConfig speechConfig,string OpenAI_KEY, string La
     Console.WriteLine("I am TalkGPT robot. Please give commands through the microphone...., To exit the program, please say 'goodbye'. ");
     await Speak(speechConfig, Language,VoiceName, "I am TalkGPT robot. Please give commands through the microphone...., To exit the program, please say 'goodbye'. ");
     var text = "";
+    
+    // Create OpenAI service once and reuse for better performance
+    OpenAIService service = new OpenAIService(new OpenAiOptions() { ApiKey = OpenAI_KEY });
+    
     while (!text.Contains("goodbye"))
     {
         var result = await recognizer.RecognizeOnceAsync();
@@ -57,14 +63,15 @@ async static Task FromMic(SpeechConfig speechConfig,string OpenAI_KEY, string La
         if (text.Trim().Length > 0)
         {
             Console.WriteLine($"\nYou Say = '{text}' ");
-            OpenAIService service = new OpenAIService(new OpenAiOptions() { ApiKey = OpenAI_KEY });
             var completionResult = await service.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
             {
                 Messages = new List<ChatMessage>
                 {
                     ChatMessage.FromUser(text)
                 },
-                Model = Models.Gpt_4
+                Model = Models.Gpt_4,
+                MaxTokens = 150, // Limit response length for faster responses
+                Temperature = 0.7f // Slightly lower temperature for more focused responses
             });
             if (completionResult.Successful)
             {
