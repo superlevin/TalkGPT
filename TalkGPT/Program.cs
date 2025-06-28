@@ -64,7 +64,7 @@ async static Task FromMic(SpeechConfig speechConfig,string OpenAI_KEY, string La
                 {
                     ChatMessage.FromUser(text)
                 },
-                Model = Models.ChatGpt3_5Turbo
+                Model = Models.Gpt_4
             });
             if (completionResult.Successful)
             {
