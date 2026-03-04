@@ -1,5 +1,5 @@
 {
-  "OpenAI_APIKEY": "sk-XXX",
+  "Gemini_APIKEY": "123123123",
   "Azure_Speech_SubscriptionKEY": "111dc6e85b704998bb3f2b1a19bc12db",
   "Azure_Speech_Region": "eastasia",
   "Azure_Speech_Language": "zh-TW",
