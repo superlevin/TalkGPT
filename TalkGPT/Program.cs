@@ -45,10 +45,10 @@ async static Task FromMic(SpeechConfig speechConfig,string OpenAI_KEY, string La
 {
     using var audioConfig = AudioConfig.FromDefaultMicrophoneInput();
     using var recognizer = new SpeechRecognizer(speechConfig, Language, audioConfig);
-    Console.WriteLine("I am TalkGPT robot. Please give commands through the microphone...., To exit the program, please say 'goodbye'. ");
-    await Speak(speechConfig, Language,VoiceName, "I am TalkGPT robot. Please give commands through the microphone...., To exit the program, please say 'goodbye'. ");
+    Console.WriteLine("我是 TalkGPT 機器人，請透過麥克風下指令，若要結束程式，請說「再見」。");
+    await Speak(speechConfig, Language,VoiceName, "我是 TalkGPT 機器人，請透過麥克風下指令，若要結束程式，請說「再見」。");
     var text = "";
-    while (!text.Contains("goodbye"))
+    while (!text.Contains("再見"))
     {
         var result = await recognizer.RecognizeOnceAsync();
         text = result.Text;
@@ -56,7 +56,7 @@ async static Task FromMic(SpeechConfig speechConfig,string OpenAI_KEY, string La
         //
         if (text.Trim().Length > 0)
         {
-            Console.WriteLine($"\nYou Say = '{text}' ");
+            Console.WriteLine($"\n您說 = '{text}' ");
             OpenAIService service = new OpenAIService(new OpenAiOptions() { ApiKey = OpenAI_KEY });
             var completionResult = await service.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
             {
@@ -75,8 +75,8 @@ async static Task FromMic(SpeechConfig speechConfig,string OpenAI_KEY, string La
         }
         //
     }
-    Console.WriteLine("\n\n See U Next Time~ \n\n");
-    await Speak(speechConfig, Language, VoiceName, "See U Next Time");
+    Console.WriteLine("\n\n 下次見！ \n\n");
+    await Speak(speechConfig, Language, VoiceName, "下次見");
 
 }
 
